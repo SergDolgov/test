@@ -21,7 +21,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-validation')
     //implementation 'org.springframework.boot:spring-boot-starter-security'
     //implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.6.RELEASE'
-
+    //implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.6.RELEASE'
+    
     implementation('org.projectlombok:lombok')
 
     runtimeOnly 'org.postgresql:postgresql'
