@@ -16,9 +16,7 @@ public class User {
     private String name;
     private String email;
     private String userpic;
-    private String gander;
-    private String locate;
+    private String gender;
+    private String locale;
     private LocalDateTime lastVisit;
-
-
 }
