@@ -9,6 +9,7 @@ public class OrganisationDTO implements Serializable {
 
     @NotEmpty
     private String name;
+    private String code;
 
     public OrganisationDTO() {
     }
@@ -25,10 +26,19 @@ public class OrganisationDTO implements Serializable {
         this.name = name;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "OrganisationDTO{" +
                 "name='" + name + '\'' +
+                "code='" + code + '\'' +
                 '}';
     }
 

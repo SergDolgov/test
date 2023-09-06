@@ -36,6 +36,7 @@ public class OrganisationService {
             organisation = new Organisation();
         }
         organisation.setName(organisationDTO.getName());
+        organisation.setCode(organisationDTO.getCode());
         return organisation;
     }
 
@@ -56,6 +57,7 @@ public class OrganisationService {
         if (organisationRepository.findOrganisationByName(organisationDTO.getName()) == null) {
             Organisation organisation = new Organisation();
             organisation.setName(organisationDTO.getName());
+            organisation.setCode(organisationDTO.getCode());
             return organisationRepository.save(organisation);
         } else {
             throw new BeanCreationException("Can not create organisation entity by dto " + organisationDTO.toString());

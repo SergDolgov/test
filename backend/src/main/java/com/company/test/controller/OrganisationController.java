@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/organisations")
 public class OrganisationController {
@@ -34,9 +34,13 @@ public class OrganisationController {
 
     @Statistic
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{name}")
-    public Organisation createOrganisation(@PathVariable @Size(min = 4, max = 50) String name) {
-        return organisationService.createFromDTO(new OrganisationDTO(name));
+//    @PostMapping("/{name}")
+//    public Organisation createOrganisation(@PathVariable @Size(min = 4, max = 50) String name) {
+//        return organisationService.createFromDTO(new OrganisationDTO(name));
+//    }
+    @PostMapping
+    public Organisation createOrganisation(@RequestBody OrganisationDTO organisationDTO) {
+        return organisationService.saveDTO(organisationDTO);
     }
 
     @Statistic

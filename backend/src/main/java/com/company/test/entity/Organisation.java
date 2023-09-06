@@ -17,6 +17,16 @@ public class Organisation extends AbstractEntity {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "code", nullable = true)
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;

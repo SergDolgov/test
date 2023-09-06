@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("message")
+@RequestMapping("api/messages")
 public class MessageController {
     private final MessageRepository messageRepository;
 
