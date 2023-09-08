@@ -4,6 +4,7 @@ import com.company.test.dto.EmployeeDTO;
 import com.company.test.entity.Employee;
 import com.company.test.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,12 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
-    private EmployeeRepository employeeRepository;
-    private OrganisationService organisationService;
+    private final EmployeeRepository employeeRepository;
+    private final OrganisationService organisationService;
+    private final DeptService deptService;
 
-    public EmployeeService(EmployeeRepository employeeRepository, OrganisationService organisationService) {
+    public EmployeeService(EmployeeRepository employeeRepository, OrganisationService organisationService, DeptService deptService) {
         this.employeeRepository = employeeRepository;
         this.organisationService = organisationService;
+        this.deptService = deptService;
     }
 
     public Page<Employee> findAll(Pageable pageable) {
@@ -35,10 +38,10 @@ public class EmployeeService {
         } else {
             employee = new Employee();
         }
-        employee.setName(employeeDTO.getName());
-        employee.setCode(employeeDTO.getCode());
-        employee.setEmail(employeeDTO.getEmail());
-        employee.setOrganisation(organisationService.findById(employeeDTO.getOrganisationId()));
+        BeanUtils.copyProperties(employeeDTO, employee, "id");
+        employee.setDept(deptService.findById(employeeDTO.deptId()));
+        employee.setOrganisation(organisationService.findById(employeeDTO.organisationId()));
+
         return employee;
     }
 
@@ -56,12 +59,12 @@ public class EmployeeService {
     }
 
     public Employee createFromDTO(EmployeeDTO employeeDTO) {
-        if (employeeRepository.findEmployeeByName(employeeDTO.getName()) == null) {
+        if (employeeRepository.findEmployeeByName(employeeDTO.name()) == null) {
             Employee employee = new Employee();
-            employee.setName(employeeDTO.getName());
-            employee.setCode(employeeDTO.getCode());
-            employee.setEmail(employeeDTO.getEmail());
-            employee.setOrganisation(organisationService.findById(employeeDTO.getOrganisationId()));
+            BeanUtils.copyProperties(employeeDTO, employee, "id");
+            employee.setDept(deptService.findById(employeeDTO.deptId()));
+            employee.setOrganisation(organisationService.findById(employeeDTO.organisationId()));
+
             return employeeRepository.save(employee);
         } else {
             throw new BeanCreationException("Can not create employee entity by dto " + employeeDTO.toString());

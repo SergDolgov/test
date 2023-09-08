@@ -6,18 +6,25 @@ class AdminNavBar extends Component {
         return (
             <div className="container">
                 <div className="statButtons">
-                    <button className="btn btn-primary" onClick={() => this.getAllMessages()}>Messages</button>
                     <button className="btn btn-primary" onClick={() => this.getAllOrganisations()}>Organisations</button>
+                    <button className="btn btn-primary" onClick={() => this.getAllDepts()}>Depts</button>
                     <button className="btn btn-primary" onClick={() => this.getAllEmployees()}>Employees</button>
-                    <button className="btn btn-primary" onClick={() => this.createNewInvoice()}>New invoice</button>
+                    <button className="btn btn-primary" onClick={() => this.getAllSubjects()}>Subjects</button>
+                    <button className="btn btn-primary" onClick={() => this.getAllTimeTables()}>TimeTables</button>
+                    <button className="btn btn-primary" onClick={() => this.createNewTimeTable()}>New TimeTable</button>
                 </div>
             </div>
         )
     }
 
-    getAllMessages() {
-        console.log("get com clicked");
-        this.props.history.push('/messages');
+    getAllSubjects() {
+        console.log("get subjects clicked");
+        this.props.history.push('/subjects');
+    }
+
+    getAllDepts() {
+        console.log("get depts clicked");
+        this.props.history.push('/depts');
     }
 
     getAllOrganisations() {
@@ -29,9 +36,15 @@ class AdminNavBar extends Component {
         console.log("get employee clicked");
         this.props.history.push('/employees');
     }
-    createNewInvoice() {
-        console.log("new invoice");
-        this.props.history.push('/invoices/-1')
+
+    getAllTimeTables() {
+        console.log("get timetable clicked");
+        this.props.history.push('/time_tables');
+    }
+
+    createNewTimeTable() {
+        console.log("new timetable");
+        this.props.history.push('/time_tables/-1')
     }
 }
 

@@ -47,7 +47,9 @@ class EmployeeList extends Component {
                             <th>Name</th>
                             <th>Code</th>
                             <th>Email</th>
+                            <th>Dept</th>
                             <th>Organisation</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,6 +60,7 @@ class EmployeeList extends Component {
                                         <td>{employee.name}</td>
                                         <td>{employee.code}</td>
                                         <td>{employee.email}</td>
+                                        <td>{employee.dept.name}</td>
                                         <td>{employee.organisation.name}</td>
                                         <td>
                                             <button className="btn btn-success"

@@ -15,12 +15,16 @@ import ProductComponents from "./ProductComponents";
 import SingleInvoice from "./SingleInvoice";
 import InvoiceItemsList from "./InvoiceItemsList";
 
-import MessageList from "./MessageList";
-import SingleMessage from "./SingleMessage";
+import DeptList from "./DeptList";
+import SingleDept from "./SingleDept";
 import OrganisationList from "./OrganisationList";
 import SingleOrganisation from "./SingleOrganisation";
 import EmployeeList from "./EmployeeList";
 import SingleEmployee from "./SingleEmployee";
+import SubjectList from "./SubjectList";
+import SingleSubject from "./SingleSubject";
+import TimeTableList from "./TimeTableList";
+import SingleTimeTable from "./SingleTimeTable";
 
 class SuperComponent extends Component {
     constructor(props) {
@@ -66,8 +70,14 @@ class SuperComponent extends Component {
                         <Route path="/employees" exact render={props => <EmployeeList {...props}/>}/>
                         <Route path="/employees/:id" exact render={props => <SingleEmployee {...props}/>}/>
 
-                        <Route path="/messages" exact render={props => <MessageList {...props}/>}/>
-                        <Route path="/messages/:id" exact render={props => <SingleMessage {...props}/>}/>
+                        <Route path="/depts" exact render={props => <DeptList {...props}/>}/>
+                        <Route path="/depts/:id" exact render={props => <SingleDept {...props}/>}/>
+
+                        <Route path="/subjects" exact render={props => <SubjectList {...props}/>}/>
+                        <Route path="/subjects/:id" exact render={props => <SingleSubject {...props}/>}/>
+
+                        <Route path="/time_tables" exact render={props => <TimeTableList {...props}/>}/>
+                        <Route path="/time_tables/:id" exact render={props => <SingleTimeTable {...props}/>}/>
 
                         <Route path="/products/:id/components" exact render={props => <ProductComponents {...props}/>}/>
                         <Route path="/invoices/:id" exact render={props => <SingleInvoice {...props}/>}/>

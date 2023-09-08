@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import EmployeeService from "../service/EmployeeService";
+import DeptService from "../service/DeptService";
 
-class SingleEmployee extends Component {
+class SingleDept extends Component {
 
     constructor(props) {
         super(props);
-        console.log('single singleEmployee');
+        console.log('single singleDept');
         this.state = {
             id: this.props.match.params.id,
             name: '',
             code: '',
-            email: '',
-            deptId: '',
             organisationId: ''
         };
         this.onSubmit = this.onSubmit.bind(this);
@@ -20,13 +18,13 @@ class SingleEmployee extends Component {
     }
 
     render() {
-        let {name, code, email, deptId, organisationId} = this.state;
+        let {name, code, organisationId} = this.state;
 
         return (
             <div>
                 <div className="container">
                     <Formik
-                        initialValues={{name, code, email, deptId, organisationId}}
+                        initialValues={{name, code, organisationId}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -48,14 +46,6 @@ class SingleEmployee extends Component {
                                         <Field className="form-control" type="text" name="code"/>
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <label>Email</label>
-                                        <Field className="form-control" type="text" name="email"/>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Dept</label>
-                                        <Field className="form-control" type="text" name="deptId"/>
-                                    </fieldset>
-                                    <fieldset className="form-group">
                                         <label>Organisation</label>
                                         <Field className="form-control" type="text" name="organisationId"/>
                                     </fieldset>
@@ -70,21 +60,19 @@ class SingleEmployee extends Component {
     }
 
     componentDidMount() {
-        console.log('in singleEmployee id=' + this.state.id);
+        console.log('in singleDept id=' + this.state.id);
 
         if (this.state.id == -1) {
             console.log("id - 1?");
             return
         }
 
-        EmployeeService.getEmployeeById(this.state.id)
+        DeptService.getDeptById(this.state.id)
             .then(response => {
                     this.setState({
                         id: response.data.id,
                         name: response.data.name,
                         code: response.data.code,
-                        email: response.data.email,
-                        deptId: response.data.dept.id,
                         organisationId: response.data.organisation.id
                     })
                 }
@@ -92,22 +80,20 @@ class SingleEmployee extends Component {
     }
 
     onSubmit(values) {
-        let employeeDTO = {
+        let deptDTO = {
             name: values.name,
             code: values.code,
-            email: values.email,
-            deptId: values.deptId,
             organisationId: values.organisationId
         };
-        console.log(employeeDTO);
+        console.log(deptDTO);
 
         if (this.state.id == -1) {
-            EmployeeService.createEmployee(employeeDTO)
-                .then(() => this.props.history.push('/employees'));
+            DeptService.createDept(deptDTO)
+                .then(() => this.props.history.push('/depts'));
             console.log('inside if => POST')
         } else {
-            EmployeeService.updateEmployee(this.state.id, employeeDTO)
-                .then(() => this.props.history.push('/employees'));
+            DeptService.updateDept(this.state.id, deptDTO)
+                .then(() => this.props.history.push('/depts'));
             console.log('inside else => PUT');
         }
     }
@@ -115,14 +101,14 @@ class SingleEmployee extends Component {
     validate(values) {
         let errors = {};
         if (!values.name) {
-            errors.name = 'Enter Employee name'
+            errors.name = 'Enter Dept name'
         }
         if (!values.organisationId) {
-            errors.organisationId = 'Enter organisationId of Employee'
+            errors.organisationId = 'Enter organisationId of Dept'
         }
         return errors
     }
 
 }
 
-export default SingleEmployee
+export default SingleDept

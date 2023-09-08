@@ -3,6 +3,7 @@ package com.company.test.service;
 import com.company.test.dto.OrganisationDTO;
 import com.company.test.entity.Organisation;
 import com.company.test.repository.OrganisationRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,8 +36,7 @@ public class OrganisationService {
         } else {
             organisation = new Organisation();
         }
-        organisation.setName(organisationDTO.getName());
-        organisation.setCode(organisationDTO.getCode());
+        BeanUtils.copyProperties(organisationDTO, organisation, "id");
         return organisation;
     }
 
@@ -54,10 +54,9 @@ public class OrganisationService {
     }
 
     public Organisation createFromDTO(OrganisationDTO organisationDTO) {
-        if (organisationRepository.findOrganisationByName(organisationDTO.getName()) == null) {
+        if (organisationRepository.findOrganisationByName(organisationDTO.name()) == null) {
             Organisation organisation = new Organisation();
-            organisation.setName(organisationDTO.getName());
-            organisation.setCode(organisationDTO.getCode());
+            BeanUtils.copyProperties(organisationDTO, organisation, "id");
             return organisationRepository.save(organisation);
         } else {
             throw new BeanCreationException("Can not create organisation entity by dto " + organisationDTO.toString());

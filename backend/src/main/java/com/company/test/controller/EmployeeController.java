@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -31,10 +31,6 @@ public class EmployeeController {
 
     @Statistic
     @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/{name}")
-//    public Employee createEmployee(@PathVariable @Size(min = 4, max = 50) String name) {
-//        return employeeService.createFromDTO(new EmployeeDTO(name));
-//    }
     @PostMapping
     public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.saveDTO(employeeDTO);

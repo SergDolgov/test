@@ -16,11 +16,14 @@ public class Employee extends AbstractEntity{
     private String name;
     private String code;
     private String email;
-
     @NotNull
     @ManyToOne
     @JoinColumn(name = "organisation_id", nullable = false)
     private Organisation organisation;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "dept_id", nullable = false)
+    private Dept dept;
 
     public String getName() {
         return name;
@@ -44,6 +47,14 @@ public class Employee extends AbstractEntity{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
     public Organisation getOrganisation() {
